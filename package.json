@@ -6,8 +6,10 @@
     "start": "node app"
   },
   "dependencies": {
-    "express": "3.0.0rc5",
+    "express": "*",
     "ejs": "*",
-    "ejs-locals": "~1.0.2"
+    "ejs-locals": "*",
+    "diskspace" : "*",
+    "socket.io" : "*"
   }
 }
