@@ -1,107 +1,19 @@
 <% layout('layout') -%>
-	
-		<div class="row-fluid">
-			<div class="span6">
-				<form id="addServerForm" class="form-inline">
-					<input type="text" class="input-small" name="name" placeholder="Name" />
-					<input type="text" class="input-small" name="ip" placeholder="IP/URL" />
-					<input type="text" class="input-mini" name="port" placeholder="port" value="3007" />
-					<button type="submit" class="btn">Add</button>
-				</form>
-			</div>
-			<div class="span6">
-				<div class="btn-group" data-toggle="buttons-checkbox">
-					<button type="button" class="btn simple-mode hidden-phone">Simple Mode</button>
-					<button type="button" class="btn animate active">Animate</button>
-				</div>
-			</div>
-		</div>
-		
-		<br /><br />
-		
-		<div id="serversList">
-			
-		</div>
-		
-		<!-- Clone Box -->
-		<div id="cloneBox" class="hidden">
-		
-			<div class="server-load box disabled">
-				<div class="box-header-mini-right">
-					<i class="icon-refresh"></i>
-					<a href="#"><i class="icon-play"></i></a>
-					<a href="#"><i class="icon-pause hidden"></i></a>
-					<a href="#"><i class="icon-remove"></i></a>
-				</div>
-				<h3 class="server-name"></h3>
-				<div class="row-fluid uptime-container" rel="tooltip" title="Uptime" data-placement="bottom">
-					<div class="uptime span12">-</div>
-				</div>
-				<div class="row-fluid load">
-					<div class="load_1min span6" rel="tooltip" title="1 minute avg" data-placement="bottom">-</div>
-					<div class="load_5min span3 hidden-phonex" rel="tooltip" title="5 minute avg" data-placement="top">-</div>
-					<div class="span3 diskspace-container" rel="tooltip" title="Diskspace" data-placement="top">
-						<div class="diskspace"></div>
-						<div class="diskspace-bar"></div>
-					</div>
-					<div class="load_15min span3 hidden-phonex" rel="tooltip" title="15 minute avg" data-placement="bottom">-</div>
-					<div class="span3 memory-container" rel="tooltip" title="Memory" data-placement="bottom">
-						<div class="memory"></div>
-						<div class="memory-bar"></div>
-					</div>
-				</div>
-				<div class="cpu-all">
-					
-				</div>
-				<div class="cpu hidden-phone">
-					
-				</div>
-			</div>
-			
-			<!-- CPU -->
-			<div class="cpu-bar" rel="tooltip" title="CPU Load" data-placement="bottom">
-				<div class="cpu-pct"></div>
-				<div class="cpu-load-types">
-					<div class="user"></div>
-					<div class="system"></div>
-					<div class="free"></div>
-				</div>
-			</div>
-			
-			<!-- Message -->
-			<div class="alert alert-info">
-				<button type="button" class="close" data-dismiss="alert">×</button>
-				
-			</div>
-			
-			<!-- Error -->
-			<div class="alert alert-error">
-				<button type="button" class="close" data-dismiss="alert">×</button>
-				
-			</div>
-		</div>
-		
-<script type="text/javascript">
 
-var servers = <%- JSON.stringify(servers) %>;
-	
-$(document).ready(function(){
-	if(servers && Object.keys(servers).length > 6){
-		$('.animate').removeClass('active');
-		Skyfall._settings.animate = false;
-	}
-	for(var name in servers){
-		var server = servers[name];
-		var port = 3007;
-		if(typeof server == 'object'){
-			var address = server['address'];
-			if(server['port']) port = server['port'];
-		}else{
-			var split = server.split(':');
-			var address = split[0];
-			if(split.length > 1) port = split[1];
-		}
-		Skyfall.addServer(name, address, port);
-	}
-});
-</script>
+  <h1>Welcome to <%- title %></h1>
+  <p>Please Choose which property you would like to monitor</p>
+  <ul id="entityList">
+  <% for (var i = 0; i < servers.length; i++) { %>
+    <li>
+    <a href="/watch/<%- servers[i].Property %>"><%- servers[i].Property %>  <span class="servercount"> Pinnacle Servers: <%- servers[i].Pinnacle_Servers.length %></span> <br ><span class="servercount"> Foundation Servers: <%- servers[i].Foundation_Servers.length %></span></a>
+    <div class="sub">
+      <ul>
+        <li><a href="/watch/<%- servers[i].Property %>/Pinnacle">Pinnacle <span class="servercount"><%- servers[i].Pinnacle_Servers.length %></span></a> </li>
+        <li><a href="/watch/<%- servers[i].Property %>/Foundation">Foundation <span class="servercount"><%- servers[i].Foundation_Servers.length %></span></a> </li>
+
+      </ul>
+    </div>
+    </li>
+  <% } %>
+  </ul>
+ 

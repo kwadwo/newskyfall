@@ -157,6 +157,7 @@ var Skyfall = {
 	}
 	
 	, loadInfo: function(data){
+		console.log(data);
 		var el = this.el;
 		var showAdvanced = el.find('.cpu').css('display') != 'none';
 		el.find('.load_1min').html(data.loadavg[0].toFixed(2));

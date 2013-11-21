@@ -7,6 +7,7 @@ var express = require('express')
 	, routes = require('./routes')
 	, http = require('http')
 	, path = require('path')
+	, login = require('./routes/login')
 	, server = http.createServer(app)
 	, exec = require('child_process').exec
 	, util = require('util')
@@ -33,8 +34,13 @@ app.configure('development', function(){
 });
 
 app.get('/server/:server', routes.server);
+app.get('/login',routes.login);
+app.post('/login',routes.signin);
 app.get('/stack/:stack', routes.stack);
 app.get('/', routes.index);
+app.get('/thrillist', routes.index);
+app.get('/jackthreads', routes.index);
+app.get('/logout',routes.logout);
 
 
 /*** START SKYFALL ****/

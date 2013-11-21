@@ -9,7 +9,10 @@
     "express": "*",
     "ejs": "*",
     "ejs-locals": "*",
-    "diskspace" : "*",
-    "socket.io" : "*"
+    "diskspace": "~0.1.5",
+    "socket.io": "*",
+    "coffee-script": "~1.6.3",
+    "underscore": "~1.5.2",
+    "hotnode": "0.0.8"
   }
 }
