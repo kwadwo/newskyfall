@@ -79,7 +79,7 @@ html, body {height: 100%;}
   width:25%;
   float:left;
   min-width:280px;
-  
+  position:relative;
   .serverInfo {
     background:#fff;
     margin-left:5px;
@@ -107,6 +107,13 @@ html, body {height: 100%;}
     text-align:center;
     margin-top:35px;
     padding-bottom:35px;
+  }
+  .memUsage {
+    width:inherit;
+    height:200px;
+    width:200px;
+    margin:0 auto;
+     display: block;
   }
 }
 #main-login {
