@@ -21,6 +21,10 @@
 body.home {
   #main {
     padding:20px;
+    -webkit-transition: padding-left 1s ease-in-out;
+    -moz-transition: padding-left 1s ease-in-out;
+    -o-transition: padding-left 1s ease-in-out;
+    transition: padding-left 1s ease-in-out;
     h1#title {
       display:none;
     }
@@ -29,6 +33,7 @@ body.home {
     }
     &.padded {
       padding-left:95px;
+
       #entityList {
         float:left;
       }

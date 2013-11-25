@@ -56,6 +56,14 @@ html, body {height: 100%;}
     }
   }
 }
+#setNotify {
+  position:absolute;
+  color:#fff;
+  right:14px;
+  background:#333;
+  padding:5px 7px 5px 7px;
+  text-decoration:none;
+}
 #main {
   h1#title {
     font-weight:1000;
@@ -86,8 +94,12 @@ html, body {height: 100%;}
     margin-right:5px;
     margin-bottom:10px;
     min-height:150px;
+    height:400px;
     -webkit-box-shadow: 0px 3px 6px -4px #969696; /* Android 2.3+, iOS 4.0.2-4.2, Safari 3-4 */
             box-shadow: 0px 3px 6px -4px #969696; /* Chrome 6+, Firefox 4+, IE 9+, iOS 5+, Opera 10.50+ */
+    &.error {
+      background:#e74c3c;
+    }
   }
   .serverName {
     display:block;
@@ -105,15 +117,87 @@ html, body {height: 100%;}
   .loadAverage1 {
     font-size:60px;
     text-align:center;
-    margin-top:35px;
-    padding-bottom:35px;
+    position:absolute;
+    top:80px;
+    left:0px;
+    width:100%;
+    .value {
+      font-size:60px;
+    }
+    .label {
+      font-size:12px;
+      position:relative;
+      top:-8px;
+    }
   }
-  .memUsage {
+  .memUse{
     width:inherit;
-    height:200px;
-    width:200px;
+    height:auto;
     margin:0 auto;
      display: block;
+     svg {
+      display:block;
+      margin:0 auto;
+     }
+  }
+  .diskSpace {
+    float:left;
+    width:100%;
+    font-size:14px;
+    .label {
+      padding-left:10px;
+      float:left;
+    }
+    .precent{
+      float:left;
+      width:180px;
+      margin-left:5px;
+      margin-right:5px;
+      background:#ecf0f1;
+      height:20px;
+      .value {
+        height:20px;
+        float:left;
+        background:#c0392b;
+        -webkit-transition: width .25s ease-in-out;
+        -moz-transition: width .25s ease-in-out;
+        -o-transition: width .25s ease-in-out;
+        transition: width .25s ease-in-out;
+      }
+    }
+    .numberPrecent {
+      float:left;
+      width:50px;
+    }
+  }
+  .cores {
+    float:left;
+    width:100%;
+    font-size:14px;
+    h1 {
+      font-size:16px;
+      font-weight:bold;
+      float:left;
+      width:100%;
+      padding-left:10px;
+    }
+    .coresHolder{
+      float:left;
+      width:100%;
+      padding-top:10px;
+      height:152px;
+      overflow:scroll-y;
+      .core {
+        float:left;
+        margin-left:10px;
+        display:block;
+        -webkit-box-shadow: 0px 3px 6px -4px #969696; /* Android 2.3+, iOS 4.0.2-4.2, Safari 3-4 */
+        box-shadow: 0px 3px 6px -4px #969696; /* Chrome 6+, Firefox 4+, IE 9+, iOS 5+, Opera 10.50+ */
+        border:1px solid #f1f1f1;
+        padding: 5px 7px 5px 7px;
+        text-align: center;
+      }
+    }
   }
 }
 #main-login {

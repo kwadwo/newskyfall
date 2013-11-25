@@ -21,11 +21,14 @@ Goldeneye = (->
     fs.exists(file, (list) ->
       if list
         servers = require('./config/default').servers
+        self = require('./config/default').current
         GLOBAL.serverlist = servers
+        GLOBAL.self = self
       else
         console.log '!!! no server config file brah'
         process.exit(1)
     )
+    
 
   setupRoutes = ->
     app.get('/', routes.index)

@@ -3,18 +3,33 @@
 <script type="text/template" id="serverTemp">
   <div class="server" id="{{property}}">
     <div class="serverInfo">
-    <div class="serverName">{{name}}</div>
-    <div class="server-details">
-      <svg class="memUsage">
-        <path d="M200,200 " id="arc" class="backer" fill="none" stroke="#ecf0f1 " stroke-width="6" />
-        <path d="M200,200 " id="arc" class="filler" fill="none" stroke="#c0392b" stroke-width="7" />
-      </svg>
-      <div class="loadAverage1"></div>
+      <div class="serverName">{{name}}</div>
+      <div class="server-details">
+        <div class="memUse"></div>
+        <div class="loadAverage1">
+          <div class="value"></div>
+          <div class="label">Load Average</div>
+        </div>
+      </div>
+      <div class="sub-server">
+        <div class="diskSpace">
+          <div class="label">Diskspace: </div>
+          <div class="precent">
+            <div class="value"></div>
+          </div>
+          <div class="numberPrecent">
+            <span class="numPercent"></span><span class="holder">%</span>
+          </div>
+
+        </div>
+        <div class="cores">
+          <h1>Cores</h1>
+          <div class="coresHolder">
+          </div>
+        </div>
+      </div>
 
     </div>
-    </div>
-
-
   </div>
 
 

@@ -23,7 +23,7 @@ Bond = (->
 
 
   buildDiskReport = (socket) ->
-    diskspace.check('/', (total, free, status) ->
+    diskspace.check(GLOBAL.self.diskchecklocation, (total, free, status) ->
       OSOBJ = {
         'totalDiskSpace' : total
         'freeSpace' : free
@@ -40,7 +40,7 @@ Bond = (->
 
     setInterval( ->
       buildReport(socket)
-    , 1000)
+    , 2000)
 
   start = ->
     console.log 'grab info from myself'
