@@ -55,9 +55,11 @@ Goldeneye.MI6 = (function(){
   },
 
   updateChart = function(donut,arcs,value) {
-    
+    colors['#2ecc71','#ecf0f1']
     arcs = arcs.data(donut([value, 100 - value])); // recompute angles, rebind data
     arcs.transition().ease("elastic").duration(450).attrTween("d", arcTween);
+    console.log(arcs[0]);
+    
     
   },
   // Store the currently-displayed angles in this._current.
@@ -97,22 +99,26 @@ Goldeneye.MI6 = (function(){
   calcCoreTimes = function(cpus, id){
     _.each(cpus,function(cpu,i){
       var times = cpu.times;
-      var TotalTime = times.user + times.sys + times.idle + times.irq + times.nice
-      var Utime = Math.abs(times.user),
-          Stime = Math.abs(times.sys),
-          prevUtime = Math.abs(CPUTIMES[id].user),
-          prevStime = Math.abs(CPUTIMES[id].sys);
+      console.log(CPUTIMES);
+      var TotalTime = (times.user - CPUTIMES[id][i].user) + (times.sys - CPUTIMES[id][i].sys) + (times.idle - CPUTIMES[id][i].idle);
       var total = 0,
-          nTotal = Utime + Stime,
-          OLDTOTAL = prevUtime + prevStime;
-      var percent = Math.round(100 * nTotal/TotalTime);
-      console.log( percent + '%');
+          nTotal = (times.user - CPUTIMES[id][i].user)  + (times.sys - CPUTIMES[id][i].sys) ;
+      var percent = Math.round(100 * (nTotal) / (TotalTime ));
+      console.log(CPUTIMES[id][i])
+
       var box = $('#' + id ).find('.coresHolder')
       , theCore = box.find('#cpu' + i);
       theCore.html(percent + '%');
-      if (percent > 74){
-        notifyError(id,'this core is running hot');
+      if (percent > 99){
+        //notifyError(id,'this core is running hot');
+        theCore.addClass('error')
+      }else {
+        theCore.removeClass('error')
       }
+     CPUTIMES[id][i].user = times.user;
+     CPUTIMES[id][i].sys = times.sys;
+     CPUTIMES[id][i].idle = times.idle;
+
     })
     
 
@@ -126,14 +132,14 @@ Goldeneye.MI6 = (function(){
         percent = used / disk.totalDiskSpace,
         percent = Math.floor(percent * 100);
     diskArea.find('.precent').css('width',parentW -140);
-    diskArea.find('.value').css('width',percent);
+    diskArea.find('.value').css('width',percent + "%");
     diskArea.find('.numPercent').html(percent);
-    if(percent > 80) {
-      parent.find('.serverInfo').addClass('error');
+    if(percent > 75 ) {
+      diskArea.find('.value').css('background',"#c0392b");
+    }else{
+      diskArea.find('.value').css('background',"#2ecc71");
     }
-    else{
-      parent.find('.serverInfo').removeClass('error');
-    }
+
 
   },
   updateView = function(serv,sock,data){
@@ -154,9 +160,15 @@ Goldeneye.MI6 = (function(){
 
     //var fill = svg.find('path').last();
     console.log(percent);
-    if(percent > 74){
-      parent.addClass('error')
-      notifyError(parent, 'Getting Hot in hur');
+    var throttledMsg = _.throttle(function(){notifyError(parent, 'Getting Hot in hurrrr')}, 6000);
+    if(percent > 80){
+      $('#' + sock.name).find('.serverInfo').addClass('error');
+      throttledMsg();
+
+
+      
+    }else{
+      
     }
     updateChart(DONUTS[serv.property],ARCS[serv.property],percent);
 
@@ -187,13 +199,13 @@ Goldeneye.MI6 = (function(){
     ,   svg = d3.select(placehold).append("svg:svg")
           .attr("width", w).attr("height", h);
 
-
+    CPUTIMES[id] = {}
     // calculate the cpu info
     _.each(rData.Cpus,function(cpu,i){
-      CPUTIMES[id] = {
-        user: cpu.times.user,
-        sys: cpu.times.sys
-      };
+      CPUTIMES[id][i] = {}
+      CPUTIMES[id][i].user =  cpu.times.user
+      CPUTIMES[id][i].sys  = cpu.times.sys
+      CPUTIMES[id][i].idle = cpu.times.idle
       parent.find('.coresHolder').append('<div class="core" id="cpu' + i +'"></div>');
     });
 
@@ -247,8 +259,6 @@ Goldeneye.MI6 = (function(){
       });
 
     });
-    
-
   },
   init = function(servers, type){
     console.log('MI6 Reporting');
